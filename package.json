@@ -1,5 +1,5 @@
 {
-  "name": "Project",
+  "name": "ds-project",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:HaganKolanz/DataStructuresFinal.git"
+    "url": "git@github.com:maxKOL00/ds-project.git"
   },
   "author": "",
   "license": "ISC",
