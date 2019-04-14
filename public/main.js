@@ -21,7 +21,7 @@ function fetchStartEndpoint(fileName) {
 }
 
 document.getElementById("meme").style.display = 'none';
-function Halloween() {
+function writeMemes() {
   var x = document.getElementById("meme");
   if (x.style.display === 'none') {
         x.style.display = 'inline';
@@ -31,7 +31,7 @@ function Halloween() {
   }
   // Uncomment below and change snow to the correct file name you want to trigger in python_scripts
   // Do the same for all the others below. 
- }
+}
  
 document.getElementById("check1").style.display = 'none';
 function check1() {
