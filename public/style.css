@@ -12,17 +12,7 @@ header {
 }
 
 body {
-  background-color: powderblue;
-}
-
-h1 {
-  font-family: 'Open Sans', sans-serif;
-  color: black;
-}
-
-h2 {
-  font-family: 'Lato', sans-serif;
-  color: black;
+  background-color: rgb(55, 247, 173);
 }
 
 p {
@@ -47,11 +37,6 @@ a:hover {
   cursor: pointer;
 }
 
-.GI {
-  padding: 10px;
-  margin: 5px;
-  text-align: center;
-}
 
 .button {
   background-color: rgb(44, 48, 44); /* Green */
@@ -189,9 +174,3 @@ input:checked + .slider:before {
   border: none;
   padding: 5px 10px; 
 }
-.item1{background-color:red;}
-.item2{background-color:green;}
-.item3{background-color: blue;}
-.item4{background-color:cyan;}
-.item5{background-color:yellow;}
-.item6{background-color:magenta;}
