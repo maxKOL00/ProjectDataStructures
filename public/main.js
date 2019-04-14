@@ -15,6 +15,7 @@
 // button3.addEventListener("click", () => fetchStartEndpoint(button3.dataset.filename));
 // button4.addEventListener("click", () => fetchStartEndpoint(button4.dataset.filename));
 
+
 function fetchStartEndpoint(fileName) {
   fetch(`/start/${fileName}`)
     .catch(error => console.log(error));
@@ -32,7 +33,8 @@ function writeMemes() {
   // Uncomment below and change snow to the correct file name you want to trigger in python_scripts
   // Do the same for all the others below. 
 }
- 
+
+
 document.getElementById("check1").style.display = 'none';
 function check1() {
   var x = document.getElementById("check1");

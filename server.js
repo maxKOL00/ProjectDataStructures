@@ -1,4 +1,11 @@
 let PythonShell = require('python-shell');
+var options = {
+  mode: 'text',
+  pythonPath: 'C:\\Users\\Max\\AppData\\Local\\Programs\\Python\\Python37-32\\Scripts\\',
+  pythonOptions: ['-u'],
+  scriptPath: 'C:\\Users\\Max\\OneDrive\\ds-project',
+
+}
 express = require('express'); //web server
 app = express();
 
@@ -15,18 +22,10 @@ app.use(express.static('./public/')); //tell the server that ./public/ contains 
 app.get('/start/:fileName', function(req, res) {  
   let fileName = req.params.fileName;
   console.log(fileName)
-  PythonShell.run(`./${fileName}`, function (err,results) {
-    console.log('results ',results);
+  PythonShell.run(`./public/${fileName}`, function (err,results) {//say where the script is
+    console.log('results: %j',results);
     if (err) throw err;
     console.log('finished');
   });
 });
 
-// This was for retrieving a lesson plan, but you found another way. You prob dont need this.
-// app.get('/start/:fileName', function(req, res) {
-//   let fileName = req.params.fileName;
-//   (`/lesson_plans/${fileName}`, function (err) {
-//     if (err) throw err;
-//     console.log('finished');
-//   });
-// });
