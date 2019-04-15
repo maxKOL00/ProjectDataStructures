@@ -13,7 +13,7 @@ app.listen(8080, function () { //start the webserver on port 8080
   console.log("server running on port http://localhost:8080");
 })
 
-app.use(express.static('./public/')); //tell the server that ./public/ contains the static webpages
+app.use(express.static('public')); //tell the server that ./public/ contains the static webpages
 
 // app.get('/', function (req, res) {
 //   res.send('hello world');
@@ -22,7 +22,7 @@ app.use(express.static('./public/')); //tell the server that ./public/ contains 
 app.get('/start/:fileName', function(req, res) {  
   let fileName = req.params.fileName;
   console.log(fileName)
-  PythonShell.run(`./public/${fileName}`, function (err,results) {//say where the script is
+  PythonShell.run(`./${fileName}`, function (err,results) {//say where the script is
     console.log('results: %j',results);
     if (err) throw err;
     console.log('finished');
