@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "heap.hpp"
+#include <cmath>
 using namespace std;
 
 void addFile(PriorityQueue &PQ){
@@ -17,50 +18,45 @@ void addFile(PriorityQueue &PQ){
         int upvote, Time;
         string title;
         int counter = 0;
-        while(getline(my_file, line)){
-            if(counter == 0){
+        while(getline(my_file, line)){//read in the lines
+            if(counter == 0){//first line is the title of a meme
                 title = line;
                 counter++;
             }
-            else if(counter == 1){
+            else if(counter == 1){//second line is its URL
                 url = line;
                 counter++;
             }
-            else if(counter == 2){
+            else if(counter == 2){//third line is its number of upvotes
                 upvote = stoi(line);
                 counter++;
             }
             else{
-                Time = stoi(line);
+                Time = stoi(line);//last line in set of four is the time
                 cout<<title<<endl;
-                PQ.enqueue(title, upvote, Time, url);
-                cout<<"fuck"<<endl;
-                counter = 0;
+                PQ.enqueue(title, 100 * round(upvote/100.0), Time, url);//enqueu with upvotes 
+                //rounded to nearest hundreth
+                counter = 0;//next line is start of new meme
             }
         }
     }
 }
 int main(){
     PriorityQueue PQ;//open queue
-    cout<<"here"<<endl;
     addFile(PQ);
-    ofstream file;
-    cout<<"here1"<<endl;
-    file.open("memes.html");
+    const char *path="C:\\Users\\Max\\OneDrive\\ds-project\\public\\memes.html";//wrtie the file here
+    ofstream file(path);//create file object with correct path
+    file.open("memes.html");//open the file
     if(file.is_open()){
-        cout<<"here2"<<endl;
         file << "<!DOCTYPE html>\n <html>\n <body>\n";
-        cout<<"here3"<<endl;
-        while(!PQ.isEmpty()){
-            cout<<"here4"<<endl;
+        while(!PQ.isEmpty()){//write the meme's info to file
             meme p = PQ.peek();
             cout<<p.Title<<endl;
             file << "<h2>" << p.Title << "</h2>\n";
             cout<<p.Title<<endl;
             file << "<img src=\"" << p.URL << "\" alt=\"MEME\">\n";
             cout<<p.URL<<endl;
-            PQ.dequeue();
-            cout<<"here5"<<endl;
+            PQ.dequeue();//dequeue the meme and move on to next one 
         }
         file << "</body>\n </html>";
     }
