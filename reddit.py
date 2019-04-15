@@ -1,6 +1,6 @@
 import praw  # Python Reddit API Wrapper
 from nltk.tokenize import word_tokenize  # tool to get each word in a sentence/phrase
-import os
+import os, emoji # os exectues .exe file, emoji handles titles with emojis
 
 reddit = praw.Reddit(client_id='Tu5oWsGc7cnafw',
                      client_secret='hjRwgAylwvkcGjxJWyPAT-eYIhI',
@@ -11,7 +11,7 @@ reddit = praw.Reddit(client_id='Tu5oWsGc7cnafw',
 print('Logged into Reddit')
 subreddit = reddit.subreddit('Memes_Of_The_Dank')  # specify which subreddit to read from
 
-hot = subreddit.hot(limit=3)  # get memes from new
+hot = subreddit.hot(limit=7)  # get memes from new
 
 file = open("memes.txt", "w")
 
@@ -28,11 +28,16 @@ def repost_check(comment):
 
     return False
 
+def extract_emojis(str):
+    return ''.join(c for c in str if c in emoji.UNICODE_EMOJI)
 
 for submission in hot:
     if not submission.stickied:
         title = submission.title
-        print(title)
+        if not extract_emojis(title): # if title only contained emojis
+                print(title)
+        else:
+            print("emoji")
         url = submission.url
         # print('URL: ', url)
         upVotes = submission.ups
@@ -52,7 +57,10 @@ for submission in hot:
             print('Error reading boolean', '\n', '\n')
         elif not repost:
             print('Writing to file...', '\n', '\n')
-            file.write(title)
+            if not extract_emojis(title): # if title only contained emojis
+                file.write(title)
+            else:
+                file.write("emoji")
             file.write('\n')
             file.write(url)
             file.write('\n')
