@@ -30,7 +30,7 @@ private:
     void repairUpward(int nodeIndex);
     void repairDownward(int nodeIndex);
     int currentQueueSize; //number of memes currently in the priority queue
-    int maxSize;
+    int maxSize;//capacity of given array
     meme *priorityQueue;
 };
 

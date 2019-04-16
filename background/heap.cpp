@@ -5,30 +5,29 @@ using namespace std;
 
 PriorityQueue::PriorityQueue(){
     currentQueueSize = 0;//start with no memes
-    maxSize = 5;
-    priorityQueue = new meme[maxSize];
+    maxSize = 5;//start the array with size 5
+    priorityQueue = new meme[maxSize];//declare the new array
 
 }
 PriorityQueue::~PriorityQueue(){
-  delete[] priorityQueue;
+  delete[] priorityQueue;//free dynamic memory
 }
 
 int left(int i){return ((2*i)+1);}//left child begin at 0
 int right(int i){return ((2*i) + 2);}//right child begin at 0
 int parent(int i) { return (i)/2;}//parent with index start at 0
-void swap(meme *x, meme *y){
+void swap(meme *x, meme *y){//swap the meme objects using pointers
     meme temp = *x;
     *x = *y;
     *y = temp;
 }
-void PriorityQueue::arrDouble(){
+void PriorityQueue::arrDouble(){//if we run out of space
   cout<<"doubling array from "<<maxSize<<" to "<<maxSize*2<<endl;
 
   meme *newArray = new meme[maxSize*2]; //create new array of double size
 
   //copy elements from old array
   for(int i=0; i<currentQueueSize; i++){
-    //cout<<"copying: "<<array[i]<<endl;
     newArray[i] = priorityQueue[i];
   }
 
@@ -46,18 +45,18 @@ void PriorityQueue::repairDownward(int nodeIndex){
     int biggest = nodeIndex;
 
     if(l < currentQueueSize && (priorityQueue[l]).UpVotes > (priorityQueue[nodeIndex]).UpVotes)
-        biggest = l;//left one has bigger group size
+        biggest = l;//left one has more UpVotes
     if(l < currentQueueSize && (priorityQueue[l]).UpVotes == (priorityQueue[nodeIndex]).UpVotes
     && (priorityQueue[l]).Time > (priorityQueue[nodeIndex]).Time)
-        biggest = l;//size equal but the left has bigger time (more recent)
+        biggest = l;//size upvotes but the left has greater time (more recent)
     if(r < currentQueueSize && (priorityQueue[r]).UpVotes > (priorityQueue[biggest]).UpVotes)
         biggest = r;//the right has more upvotes
     if(r < currentQueueSize && (priorityQueue[r]).UpVotes == (priorityQueue[biggest]).UpVotes
     &&(priorityQueue[r]).Time > (priorityQueue[biggest]).Time)
-        biggest = r;//size equal but the right has bigger time (more recent)
+        biggest = r;//size equal but the right has greater time (more recent)
 
-    if(biggest != nodeIndex){//things were swapped
-        swap(priorityQueue[nodeIndex], priorityQueue[biggest]);
+    if(biggest != nodeIndex){//a child should become a parent
+        swap(priorityQueue[nodeIndex], priorityQueue[biggest]);//switch the memes
         repairDownward(biggest);//recursive call
     }
 }
@@ -69,13 +68,13 @@ void PriorityQueue::repairUpward(int nodeIndex){
     int CsizeI = priorityQueue[nodeIndex].Time;//store the variables we are going to compare
 
     bool stop = false;//to stop the loop while it's no longer needed
-    while(nodeIndex != 0 && !stop){
+    while(nodeIndex != 0 && !stop){//until we get to the first one
         if(sizeP < sizeI){
             swap(priorityQueue[nodeIndex], priorityQueue[parent(nodeIndex)]);
             nodeIndex = parent(nodeIndex);//if the parent has a fewer upvotes
         }
         else if(sizeP == sizeI){//same upvotes
-            while(nodeIndex != 0 && !stop){
+            while(nodeIndex != 0 && !stop){//loop through while same number of upvotes
                 if(CsizeP < CsizeI && sizeP == sizeI){
                     swap(priorityQueue[nodeIndex], priorityQueue[parent(nodeIndex)]);
                     nodeIndex = parent(nodeIndex);//the size is the same but time needs swaping
@@ -103,9 +102,9 @@ void PriorityQueue::repairUpward(int nodeIndex){
 
 void PriorityQueue::enqueue(std::string _Title, int _UpVotes, int _Time, std::string _URL){
     if(currentQueueSize == maxSize){
-      arrDouble();
+      arrDouble();//make sure we don't get seg fault
     }
-    meme NewMeme;
+    meme NewMeme;//new meme object
     currentQueueSize++;
     NewMeme.Time = _Time;
     NewMeme.Title = _Title;
@@ -138,7 +137,6 @@ meme PriorityQueue::peek(){
         cout << "Heap empty, nothing to peek" << endl;
 
     }
-    cout<<priorityQueue[0].Title;
     return priorityQueue[0];//the one on top
 }
 
