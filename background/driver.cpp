@@ -32,9 +32,8 @@ void addFile(PriorityQueue &PQ){
                 counter++;
             }
             else{
-                Time = stoi(line);//last line in set of four is the time
-                cout<<title<<endl;
-                PQ.enqueue(title, 100 * round(upvote/100.0), Time, url);//enqueu with upvotes 
+                Time = stoi(line);//last line in set of four is the time=
+                PQ.enqueue(title, (100 * round(upvote/100.0)), Time, url);//enqueue with upvotes 
                 //rounded to nearest hundreth
                 counter = 0;//next line is start of new meme
             }
@@ -46,19 +45,23 @@ int main(){
     addFile(PQ);
     const char *path="C:\\Users\\Max\\OneDrive\\ds-project\\public\\memes.html";//wrtie the file here
     ofstream file(path);//create file object with correct path
-    file.open("memes.html");//open the file
+    //file.open("memes.html");//open the file
+    
     if(file.is_open()){
+        cout << "file is open" << endl;
         file << "<!DOCTYPE html>\n <html>\n <body>\n";
+
         while(!PQ.isEmpty()){//write the meme's info to file
             meme p = PQ.peek();
-            cout<<p.Title<<endl;
             file << "<h2>" << p.Title << "</h2>\n";
             cout<<p.Title<<endl;
             file << "<img src=\"" << p.URL << "\" alt=\"MEME\">\n";
             cout<<p.URL<<endl;
             PQ.dequeue();//dequeue the meme and move on to next one 
         }
+
         file << "</body>\n </html>";
+        file.close();
     }
     else{
         cout << "could not open file" << endl;
