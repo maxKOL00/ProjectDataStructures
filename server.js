@@ -20,7 +20,7 @@ app.use(express.static('public')); //tell the server that ./public/ contains the
 app.get('/start/:fileName', function(req, res) {  //get the name of the script
   let fileName = req.params.fileName;
   console.log(fileName)
-  PythonShell.run(`./${fileName}`, function (err,results) {//say where the script is
+  PythonShell.run(`./public/${fileName}`, function (err,results) {//say where the script is
     console.log('results: %j',results);//log the output of the python script
     if (err) throw err;
     console.log('finished');//when the script has finnished running
