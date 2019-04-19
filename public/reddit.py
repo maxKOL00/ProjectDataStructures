@@ -1,6 +1,6 @@
 import praw  # Python Reddit API Wrapper
 from nltk.tokenize import word_tokenize  # tool to get each word in a sentence/phrase
-import os, emoji, os.path # os exectues .exe file, emoji handles titles with emojis
+import os, emoji, os.path, re # os exectues .exe file, emoji handles titles with emojis
 
 reddit = praw.Reddit(client_id='Tu5oWsGc7cnafw',
                      client_secret='hjRwgAylwvkcGjxJWyPAT-eYIhI',
@@ -22,7 +22,8 @@ file = open(completeName, "w")#open the file and write to it
 def repost_check(comment):
     for i in word_tokenize(comment):#puts comments into an array
         word = i.lower()#make everything lowercase
-        if word == 're' or word == 'ree' or word == 'reee' or word == 'reeee':
+        #catches reeee with any oamount of ees
+        if word == 're' or word == 'ree' or word == 'reee' or re.search("^reee.*e$", word):
             print('flagged word: ', word)
             return True
         if word == 'repost':
