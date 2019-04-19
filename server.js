@@ -8,6 +8,8 @@ var options = {
 }
 express = require('express'); //web server
 app = express();
+const path = require('path');
+const router = express.Router();
 
 app.listen(8080, function () { //start the webserver on port 8080
   console.log("server running on port http://localhost:8080");
@@ -15,7 +17,10 @@ app.listen(8080, function () { //start the webserver on port 8080
 
 app.use(express.static('public')); //tell the server that ./public/ contains the static webpages
 
-
+// router.get('/memes',function(req,res){
+//   res.sendFile(path.join(__dirname+'/memes.html'));
+// });
+// app.use('/memes', router);
 
 app.get('/start/:fileName', function(req, res) {  //get the name of the script
   let fileName = req.params.fileName;

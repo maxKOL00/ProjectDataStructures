@@ -5,10 +5,11 @@
 using namespace std;
 
 void addFile(PriorityQueue &PQ){
-    ifstream my_file;
     string part;
     string line;
-    my_file.open("memes.txt");//open file
+    const char *path="C:\\Users\\Max\\OneDrive\\ds-project\\public\\memes.txt";//wrtie the file here
+    ifstream my_file(path);//create file object with correct path
+    //my_file.open("memes.txt");//open file
     if(!my_file.is_open()){
         cout << "Failed to open the file." << endl;//if can't open
     }
